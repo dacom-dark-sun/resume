@@ -1,0 +1,11 @@
+{
+  "name": "resume",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/generate-pdf.mjs"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.34.0"
+  }
+}

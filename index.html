@@ -79,6 +79,10 @@
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease;
   }
+  a.btn{
+    text-decoration: none;
+    display: inline-block;
+  }
   .btn:hover{ background: var(--line); color: var(--navy-deep); }
   .btn.primary{ background: var(--rust); border-color: var(--rust); color: var(--paper); }
   .btn.primary:hover{ background: #E0783F; }
@@ -323,7 +327,7 @@
 <div class="grid-bg"></div>
 
 <div class="toolbar">
-  <button class="btn" onclick="window.print()">Скачать PDF</button>
+  <a class="btn" href="resume.pdf" download="Muraviev-Alexey-Resume.pdf">Скачать PDF</a>
 </div>
 
 <div class="wrap">
