@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Алексей Муравьев — Senior Fullstack / Blockchain-разработчик</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #10283B;
+    --navy-deep: #0B1E2C;
+    --paper: #EFE9DC;
+    --paper-dim: #E3DCC9;
+    --line: #6FA8C7;
+    --node: #D9713C;
+    --ink: #1C1B19;
+    --ink-soft: #4A463F;
+    --rust: #C6602F;
+    --grid-line: rgba(111,168,199,0.16);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--navy);
+    color: var(--paper);
+    font-family: 'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Blueprint grid backdrop ---------- */
+  .grid-bg{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  .wrap{
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 28px 120px;
+  }
+
+  /* ---------- Top bar / controls ---------- */
+  .toolbar{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display:flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 18px 28px;
+    max-width: 880px;
+    margin: 0 auto;
+    background: linear-gradient(var(--navy) 70%, transparent);
+  }
+  .btn{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 9px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .btn:hover{ background: var(--line); color: var(--navy-deep); }
+  .btn.primary{ background: var(--rust); border-color: var(--rust); color: var(--paper); }
+  .btn.primary:hover{ background: #E0783F; }
+
+  /* ---------- Header / hero ---------- */
+  header.hero{
+    padding: 24px 0 48px;
+    border-bottom: 1px solid var(--grid-line);
+    margin-bottom: 48px;
+  }
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--line);
+    margin: 0 0 14px;
+  }
+  .id-row{
+    display:flex;
+    align-items:center;
+    gap: 22px;
+    margin-bottom: 22px;
+  }
+  .photo-slot{
+    flex-shrink: 0;
+    width: 96px;
+    height: 96px;
+    border-radius: 3px;
+    border: 1px dashed var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(111,168,199,0.06);
+  }
+  .photo-slot span{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--line);
+  }
+  .photo-slot img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+  .id-text h1.name{ margin-bottom: 6px; }
+  .id-text .role-line{ margin-bottom: 10px; }
+  .github-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--rust);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--rust);
+    padding-bottom: 1px;
+    width: fit-content;
+  }
+  .github-link:hover{ color: #E0783F; border-color: #E0783F; }
+  .github-link svg{ flex-shrink: 0; }
+
+  h1.name{
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: clamp(34px, 6vw, 52px);
+    line-height: 1.05;
+    margin: 0 0 8px;
+    color: var(--paper);
+  }
+  .role-line{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14.5px;
+    color: var(--line);
+    margin: 0 0 28px;
+  }
+  .about{
+    font-family: 'Source Serif 4', serif;
+    font-size: 17.5px;
+    line-height: 1.65;
+    color: var(--paper);
+    max-width: 68ch;
+    margin: 0 0 26px;
+  }
+  .stack-block{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--paper-dim);
+  }
+  .stack-block .label{
+    color: var(--line);
+    margin-right: 10px;
+  }
+  .tag{
+    display:inline-block;
+    border: 1px solid var(--grid-line);
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin: 2px 4px 2px 0;
+  }
+
+  .education{ margin-bottom: 48px; }
+  .edu-card{
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 3px;
+    padding: 20px 26px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.15);
+  }
+  .edu-card .dates{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 6px;
+  }
+  .edu-card h2{
+    font-family: 'Source Serif 4', serif;
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .edu-card .org{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Timeline ---------- */
+  .timeline{ position: relative; }
+  .entry{
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 20px;
+    padding-bottom: 46px;
+    position: relative;
+  }
+  .entry:not(:last-child)::before{
+    content:"";
+    position: absolute;
+    left: 31px;
+    top: 64px;
+    bottom: -6px;
+    width: 1px;
+    background: var(--grid-line);
+  }
+  .node-col{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .node-fig{ display:block; }
+  .node-fig circle{ fill: var(--node); }
+  .node-fig line{ stroke: var(--line); }
+
+  .card{
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 3px;
+    padding: 26px 30px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.15);
+  }
+  .card .dates{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 6px;
+  }
+  .card h2{
+    font-family: 'Source Serif 4', serif;
+    font-size: 21px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  .card .org{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .card p{
+    font-family: 'Source Serif 4', serif;
+    font-size: 15.5px;
+    line-height: 1.62;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+  .card p:last-child{ margin-bottom: 0; }
+
+  footer.foot{
+    margin-top: 20px;
+    padding-top: 28px;
+    border-top: 1px solid var(--grid-line);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--paper-dim);
+    text-align: center;
+  }
+
+  @media (max-width: 620px){
+    .id-row{ gap: 14px; }
+    .photo-slot{ width: 64px; height: 64px; }
+    .entry{ grid-template-columns: 40px 1fr; gap: 12px; }
+    .node-fig{ width: 40px; height: 40px; }
+    .entry:not(:last-child)::before{ left: 19px; }
+    .card{ padding: 20px 18px; }
+  }
+
+  /* ---------- Print ---------- */
+  @media print{
+    html, body{
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+    body{ background: var(--navy); }
+    .grid-bg{ display: block; }
+    .toolbar{ display: none; }
+    .entry{ break-inside: avoid; page-break-inside: avoid; }
+    .card, .edu-card{ break-inside: avoid; page-break-inside: avoid; box-shadow: none; }
+    .wrap{ padding: 0 24px 40px; }
+    a{ color: inherit; }
+    a.github-link{ color: var(--rust); }
+    @page{ margin: 12mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<div class="toolbar">
+  <button class="btn" onclick="window.print()">Скачать PDF</button>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Резюме · Разработка</p>
+    <div class="id-row">
+      <div class="photo-slot" aria-label="Место для фотографии">
+        <span>ФОТО</span>
+      </div>
+      <div class="id-text">
+        <h1 class="name">Алексей Муравьев</h1>
+        <p class="role-line">Senior Fullstack / Blockchain-разработчик · Smart-contracts · VueJS / Node.js</p>
+        <a class="github-link" href="https://github.com/dacom-dark-sun" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          <span>github.com/dacom-dark-sun</span>
+        </a>
+      </div>
+    </div>
+    <p class="about">
+      Разработчик с опытом в blockchain, smart-contracts и fullstack-вебе (VueJS, Node.js).
+      За десять с лишним лет написал код для нескольких блокчейн-проектов с нуля: от запуска
+      нод и написания смарт-контрактов до фронтенда и бэкенда поверх них. Начинал с embedded
+      C/C++, затем ушёл в веб и блокчейн — и с тех пор код пишу сам, а не только проектирую.
+      Разбираюсь в EOSIO, BitShares, токеномике и механике децентрализованных бирж на практике,
+      а не по документации. Спокойно вхожу в проект на любом этапе и довожу его до продакшена.
+    </p>
+    <div class="stack-block">
+      <div><span class="label">STACK</span>VueJS · Node.js · EOSIO blockchain · C/C++</div>
+      <div style="margin-top:10px;">
+        <span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span>
+        <span class="tag">Vite</span><span class="tag">Quasar</span><span class="tag">PHP</span>
+        <span class="tag">nginx</span><span class="tag">webpack</span><span class="tag">npm</span>
+        <span class="tag">git</span><span class="tag">Docker</span><span class="tag">MySQL</span>
+        <span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">GraphQL</span>
+        <span class="tag">Смарт-контракты</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="education">
+    <p class="eyebrow">Образование</p>
+    <div class="edu-card">
+      <div class="dates">2007 — 2013</div>
+      <h2>Челябинский государственный университет</h2>
+      <div class="org">Магистр, физика наноструктур и оптоэлектроники</div>
+    </div>
+  </section>
+
+  <div class="timeline">
+
+    <div class="entry">
+      <div class="node-col">
+        <svg viewBox="0 0 64 64" width="64" height="64" class="node-fig"><line x1="32.0" y1="10.0" x2="47.6" y2="16.4" opacity="0.55"/><line x1="47.6" y1="16.4" x2="54.0" y2="32.0" opacity="0.55"/><line x1="54.0" y1="32.0" x2="47.6" y2="47.6" opacity="0.55"/><line x1="47.6" y1="47.6" x2="32.0" y2="54.0" opacity="0.55"/><line x1="32.0" y1="54.0" x2="16.4" y2="47.6" opacity="0.55"/><line x1="16.4" y1="47.6" x2="10.0" y2="32.0" opacity="0.55"/><line x1="10.0" y1="32.0" x2="16.4" y2="16.4" opacity="0.55"/><line x1="16.4" y1="16.4" x2="32.0" y2="10.0" opacity="0.55"/><line x1="32.0" y1="10.0" x2="54.0" y2="32.0" opacity="0.55"/><line x1="47.6" y1="16.4" x2="47.6" y2="47.6" opacity="0.55"/><line x1="54.0" y1="32.0" x2="32.0" y2="54.0" opacity="0.55"/><line x1="47.6" y1="47.6" x2="16.4" y2="47.6" opacity="0.55"/><line x1="32.0" y1="54.0" x2="10.0" y2="32.0" opacity="0.55"/><line x1="16.4" y1="47.6" x2="16.4" y2="16.4" opacity="0.55"/><line x1="10.0" y1="32.0" x2="32.0" y2="10.0" opacity="0.55"/><line x1="16.4" y1="16.4" x2="47.6" y2="16.4" opacity="0.55"/><line x1="32.0" y1="10.0" x2="47.6" y2="47.6" opacity="0.55"/><line x1="54.0" y1="32.0" x2="16.4" y2="47.6" opacity="0.55"/><line x1="32.0" y1="54.0" x2="16.4" y2="16.4" opacity="0.55"/><line x1="10.0" y1="32.0" x2="47.6" y2="16.4" opacity="0.55"/><circle cx="32.0" cy="10.0" r="3.2"/><circle cx="47.6" cy="16.4" r="3.2"/><circle cx="54.0" cy="32.0" r="3.2"/><circle cx="47.6" cy="47.6" r="3.2"/><circle cx="32.0" cy="54.0" r="3.2"/><circle cx="16.4" cy="47.6" r="3.2"/><circle cx="10.0" cy="32.0" r="3.2"/><circle cx="16.4" cy="16.4" r="3.2"/></svg>
+      </div>
+      <div class="card">
+        <div class="dates">2023 — по настоящее время</div>
+        <h2>Разработчик</h2>
+        <div class="org">Цифровой Кооператив</div>
+        <p>Пишу смарт-контракты и систему электронного документооборота для потребительских кооперативов, включая простую электронную подпись.</p>
+        <p>Реализую пользовательские сценарии на стыке юридической логики (судебная практика) и смарт-контрактов — от идеи до кода в приложении.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="node-col">
+        <svg viewBox="0 0 64 64" width="64" height="64" class="node-fig"><line x1="32.0" y1="10.0" x2="49.2" y2="18.3" opacity="0.55"/><line x1="49.2" y1="18.3" x2="53.4" y2="36.9" opacity="0.55"/><line x1="53.4" y1="36.9" x2="41.5" y2="51.8" opacity="0.55"/><line x1="41.5" y1="51.8" x2="22.5" y2="51.8" opacity="0.55"/><line x1="22.5" y1="51.8" x2="10.6" y2="36.9" opacity="0.55"/><line x1="10.6" y1="36.9" x2="14.8" y2="18.3" opacity="0.55"/><line x1="14.8" y1="18.3" x2="32.0" y2="10.0" opacity="0.55"/><line x1="32.0" y1="10.0" x2="53.4" y2="36.9" opacity="0.55"/><line x1="49.2" y1="18.3" x2="41.5" y2="51.8" opacity="0.55"/><line x1="53.4" y1="36.9" x2="22.5" y2="51.8" opacity="0.55"/><line x1="41.5" y1="51.8" x2="10.6" y2="36.9" opacity="0.55"/><line x1="22.5" y1="51.8" x2="14.8" y2="18.3" opacity="0.55"/><line x1="10.6" y1="36.9" x2="32.0" y2="10.0" opacity="0.55"/><line x1="14.8" y1="18.3" x2="49.2" y2="18.3" opacity="0.55"/><line x1="32.0" y1="10.0" x2="41.5" y2="51.8" opacity="0.55"/><line x1="53.4" y1="36.9" x2="10.6" y2="36.9" opacity="0.55"/><line x1="22.5" y1="51.8" x2="32.0" y2="10.0" opacity="0.55"/><line x1="14.8" y1="18.3" x2="53.4" y2="36.9" opacity="0.55"/><circle cx="32.0" cy="10.0" r="3.2"/><circle cx="49.2" cy="18.3" r="3.2"/><circle cx="53.4" cy="36.9" r="3.2"/><circle cx="41.5" cy="51.8" r="3.2"/><circle cx="22.5" cy="51.8" r="3.2"/><circle cx="10.6" cy="36.9" r="3.2"/><circle cx="14.8" cy="18.3" r="3.2"/></svg>
+      </div>
+      <div class="card">
+        <div class="dates">Окт. 2021 — Янв. 2023</div>
+        <h2>Blockchain-разработчик</h2>
+        <div class="org">HomeUnity</div>
+        <p>Запустил блокчейн на EOSIO и написал смарт-контракты для цифровой экономики фракционного владения недвижимостью.</p>
+        <p>Собрал платформу для покупки NFT-фракций недвижимости с нуля.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="node-col">
+        <svg viewBox="0 0 64 64" width="64" height="64" class="node-fig"><line x1="32.0" y1="10.0" x2="51.1" y2="21.0" opacity="0.55"/><line x1="51.1" y1="21.0" x2="51.1" y2="43.0" opacity="0.55"/><line x1="51.1" y1="43.0" x2="32.0" y2="54.0" opacity="0.55"/><line x1="32.0" y1="54.0" x2="12.9" y2="43.0" opacity="0.55"/><line x1="12.9" y1="43.0" x2="12.9" y2="21.0" opacity="0.55"/><line x1="12.9" y1="21.0" x2="32.0" y2="10.0" opacity="0.55"/><line x1="32.0" y1="10.0" x2="51.1" y2="43.0" opacity="0.55"/><line x1="51.1" y1="21.0" x2="32.0" y2="54.0" opacity="0.55"/><line x1="51.1" y1="43.0" x2="12.9" y2="43.0" opacity="0.55"/><line x1="32.0" y1="54.0" x2="12.9" y2="21.0" opacity="0.55"/><line x1="12.9" y1="43.0" x2="32.0" y2="10.0" opacity="0.55"/><line x1="12.9" y1="21.0" x2="51.1" y2="21.0" opacity="0.55"/><line x1="32.0" y1="10.0" x2="32.0" y2="54.0" opacity="0.55"/><line x1="51.1" y1="43.0" x2="12.9" y2="21.0" opacity="0.55"/><line x1="12.9" y1="43.0" x2="51.1" y2="21.0" opacity="0.55"/><circle cx="32.0" cy="10.0" r="3.2"/><circle cx="51.1" cy="21.0" r="3.2"/><circle cx="51.1" cy="43.0" r="3.2"/><circle cx="32.0" cy="54.0" r="3.2"/><circle cx="12.9" cy="43.0" r="3.2"/><circle cx="12.9" cy="21.0" r="3.2"/></svg>
+      </div>
+      <div class="card">
+        <div class="dates">Дек. 2019 — Янв. 2020</div>
+        <h2>Разработчик</h2>
+        <div class="org">CryptoUnit</div>
+        <p>Реализовал цифровую экономику на смарт-контрактах для компании с базой в 1 млн клиентов: написал план миграции на EOSIO и блокчейн-эксплорер для отслеживания транзакций.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="node-col">
+        <svg viewBox="0 0 64 64" width="64" height="64" class="node-fig"><line x1="32.0" y1="10.0" x2="52.9" y2="25.2" opacity="0.55"/><line x1="52.9" y1="25.2" x2="44.9" y2="49.8" opacity="0.55"/><line x1="44.9" y1="49.8" x2="19.1" y2="49.8" opacity="0.55"/><line x1="19.1" y1="49.8" x2="11.1" y2="25.2" opacity="0.55"/><line x1="11.1" y1="25.2" x2="32.0" y2="10.0" opacity="0.55"/><line x1="32.0" y1="10.0" x2="44.9" y2="49.8" opacity="0.55"/><line x1="52.9" y1="25.2" x2="19.1" y2="49.8" opacity="0.55"/><line x1="44.9" y1="49.8" x2="11.1" y2="25.2" opacity="0.55"/><line x1="19.1" y1="49.8" x2="32.0" y2="10.0" opacity="0.55"/><line x1="11.1" y1="25.2" x2="52.9" y2="25.2" opacity="0.55"/><circle cx="32.0" cy="10.0" r="3.2"/><circle cx="52.9" cy="25.2" r="3.2"/><circle cx="44.9" cy="49.8" r="3.2"/><circle cx="19.1" cy="49.8" r="3.2"/><circle cx="11.1" cy="25.2" r="3.2"/></svg>
+      </div>
+      <div class="card">
+        <div class="dates">Июнь 2018 — Июнь 2019</div>
+        <h2>Blockchain-разработчик</h2>
+        <div class="org">TravelChain</div>
+        <p>Изучил и запустил блокчейн на EOSIO — платформе смарт-контрактов на C/C++, настроил токеномику.</p>
+        <p>Написал шлюзы миграции с BitShares на EOSIO и вывел токены на биржу.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="node-col">
+        <svg viewBox="0 0 64 64" width="64" height="64" class="node-fig"><line x1="32.0" y1="10.0" x2="54.0" y2="32.0" opacity="0.55"/><line x1="54.0" y1="32.0" x2="32.0" y2="54.0" opacity="0.55"/><line x1="32.0" y1="54.0" x2="10.0" y2="32.0" opacity="0.55"/><line x1="10.0" y1="32.0" x2="32.0" y2="10.0" opacity="0.55"/><line x1="32.0" y1="10.0" x2="32.0" y2="54.0" opacity="0.55"/><line x1="54.0" y1="32.0" x2="10.0" y2="32.0" opacity="0.55"/><circle cx="32.0" cy="10.0" r="3.2"/><circle cx="54.0" cy="32.0" r="3.2"/><circle cx="32.0" cy="54.0" r="3.2"/><circle cx="10.0" cy="32.0" r="3.2"/></svg>
+      </div>
+      <div class="card">
+        <div class="dates">Июнь 2017 — Июнь 2018</div>
+        <h2>Соучредитель, разработчик</h2>
+        <div class="org">TravelChain</div>
+        <p>Один из основателей блокчейн-проекта для путешествий. Взял за основу BitShares и адаптировал его механику под хранение и обмен токенов на децентрализованной бирже.</p>
+        <p>Построил шлюзы между TravelChain и BitShares DEX, вывел токен на биржу, участвовал в подготовке и проведении ICO на $1 млн.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="node-col">
+        <svg viewBox="0 0 64 64" width="64" height="64" class="node-fig"><line x1="32.0" y1="10.0" x2="51.1" y2="43.0" opacity="0.55"/><line x1="51.1" y1="43.0" x2="12.9" y2="43.0" opacity="0.55"/><line x1="12.9" y1="43.0" x2="32.0" y2="10.0" opacity="0.55"/><circle cx="32.0" cy="10.0" r="3.2"/><circle cx="51.1" cy="43.0" r="3.2"/><circle cx="12.9" cy="43.0" r="3.2"/></svg>
+      </div>
+      <div class="card">
+        <div class="dates">Авг. 2016 — Авг. 2017</div>
+        <h2>Разработчик</h2>
+        <div class="org">GOLOS / MAPALA</div>
+        <p>Участвовал в запуске блокчейна Golos.io — поднял ноду на своём сервере, обеспечивал стабильную генерацию блоков весь год, писал ПО на Node.js для поставки курсов криптовалют.</p>
+        <p>Параллельно на MAPALA написал синхронизацию базы данных с блокчейном GOLOS (первый сторонний веб-клиент) и шлюз для еженедельного ICO-аукциона токенов за BTC.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="node-col">
+        <svg viewBox="0 0 64 64" width="64" height="64" class="node-fig"><line x1="32.0" y1="10.0" x2="32.0" y2="54.0" opacity="0.55"/><circle cx="32.0" cy="10.0" r="3.2"/><circle cx="32.0" cy="54.0" r="3.2"/></svg>
+      </div>
+      <div class="card">
+        <div class="dates">Май 2015 — Авг. 2016</div>
+        <h2>Основатель</h2>
+        <div class="org">MAPALA</div>
+        <p>Запустил международный стартап для P2P-путешествий. Когда бюджет на разработку кончился — доделал платформу сам: PHP, JavaScript, Ajax, jQuery, MySQL. Отсюда начался путь в веб-разработку.</p>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="node-col">
+        <svg viewBox="0 0 64 64" width="64" height="64" class="node-fig"><circle cx="32.0" cy="32.0" r="3.2"/></svg>
+      </div>
+      <div class="card">
+        <div class="dates">Май 2012 — Авг. 2013</div>
+        <h2>Инженер-разработчик</h2>
+        <div class="org">РФЯЦ ВНИИТФ</div>
+        <p>Провёл полный цикл разработки электронного устройства: от проектирования платы до прошивки на C/C++ под микроконтроллер Microchip.</p>
+        <p>Спроектировал и написал драйвер сложения пучков оптоволоконных лазеров в одной точке по показаниям датчика.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="foot">резюме сформировано как цифровой документ — сеть узлов растёт вместе с опытом</footer>
+
+</div>
+
+</body>
+</html>
